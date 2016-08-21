@@ -8,4 +8,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- Application specific style -->
+    <style name="AppTheme.ConnectionInfoContainer">
+        <item name="android:background">@color/gray3</item>
+    </style>
+    <style name="AppTheme.ConnectionInfoText">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/graye</item>
+    </style>
+
 </resources>
