@@ -3,24 +3,11 @@
 <!-- 표준 lib의 view의 속성은 표준 속성임으로 android namespace로...
 NavigationView는 표준 라이브러리가 아니다.. 그쪽 속성도 표준 속성이 아니다.
 별도 namespace 선언하고 사용해야..-->
-<android.support.v4.widget.DrawerLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent" >
 
-    <!--DrawerLayout 하위에 두개의 sub tag 추가..
-        순서대로.. 메인화면 - navigation drawer -->
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <!-- 표준 라이브러리 view가 아닌것은 꼭 full package명으로 등록
-        tab button 다양화..
-        -->
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
@@ -30,12 +17,14 @@ NavigationView는 표준 라이브러리가 아니다.. 그쪽 속성도 표준 
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/tab_layout" />
+            android:layout_marginBottom="26dp"
+            android:layout_below="@id/tab_layout"/>
 
         <LinearLayout
+            android:id="@+id/layout_connection_info"
             android:layout_width="match_parent"
             android:layout_height="26dp"
-            android:layout_below="@id/pager"
+            android:layout_alignParentBottom="true"
             android:orientation="horizontal"
             style="@style/AppTheme.ConnectionInfoContainer">
             <ImageView
@@ -48,8 +37,8 @@ NavigationView는 표준 라이브러리가 아니다.. 그쪽 속성도 표준 
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:layout_margin="3dp"
+                android:text="None"
                 style="@style/AppTheme.ConnectionInfoText"/>
         </LinearLayout>
-    </RelativeLayout>
 
-</android.support.v4.widget.DrawerLayout>
+</RelativeLayout>
