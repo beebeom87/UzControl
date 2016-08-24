@@ -474,11 +474,12 @@ public class BluetoothChatService {
             int bytes;
 
             // Keep listening to the InputStream while connected
-            while (mState == STATE_CONNECTED) {
+            while (mState == STATE_CONNECTED || mState == STATE_CONNECTING) {
                 try {
                     // Read from the InputStream
                     bytes = mmInStream.read(buffer);
-
+                    UZLog.d(TAG, "read size : " + bytes);
+/*
                     for(int i = 0; i < bytes; i++, menuIndex++) {
                         menu[menuNum][menuIndex] = buffer[i];
                         if(buffer[i] == '\n') {
@@ -493,7 +494,7 @@ public class BluetoothChatService {
                                 break;
                             }
                         }
-                    }
+                    }*/
                     // Send the obtained bytes to the UI Activity
                     mHandler.obtainMessage(Constants.MESSAGE_READ, bytes, -1, buffer)
                             .sendToTarget();
@@ -516,9 +517,9 @@ public class BluetoothChatService {
             try {
                 mmOutStream.write(buffer);
 
-                // Share the sent message back to the UI Activity
                 mHandler.obtainMessage(Constants.MESSAGE_WRITE, -1, -1, buffer)
                         .sendToTarget();
+                // Share the sent message back to the UI Activity
             } catch (IOException e) {
                 UZLog.e(TAG, "Exception during write", e);
             }

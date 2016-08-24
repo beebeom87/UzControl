@@ -4,19 +4,77 @@
   android:layout_width="fill_parent"
   android:layout_height="fill_parent"
   android:gravity="center"
-  android:orientation="vertical" >
-  <TextView 
-	android:id="@+id/detail_news_text"
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    android:textSize="20dp"
-    android:text="Fragment Two"
-    android:gravity="center_horizontal"
+  android:orientation="vertical"
+  android:id="@+id/fragment_movecontrol"  >
+
+    <TextView
+	    android:id="@+id/distance_tv"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:textSize="20dp"
+        android:text="Distance : %d"
+        android:gravity="center_horizontal"
     />
 
     <Button
-        android:id="@+id/test_button"
+        android:id="@+id/move_up_bt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="test"/>
+        android:text="Up"
+        android:layout_gravity="center_horizontal"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/move_left_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Left"
+            android:layout_gravity="center_horizontal"/>
+
+        <Button
+            android:id="@+id/move_down_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Down"
+            android:layout_gravity="center_horizontal"/>
+
+        <Button
+            android:id="@+id/move_right_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Right"
+            android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Power:"/>
+
+        <android.support.v7.widget.AppCompatSeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/power_seekbar"
+            android:max="100"
+            android:layout_marginLeft="10dp"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/power_tv"
+        android:elevation="@dimen/activity_horizontal_margin"/>
+
 </LinearLayout>

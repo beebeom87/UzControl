@@ -1,6 +1,5 @@
 package com.sb.uzcontrol;
 
-import android.app.ActionBar;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
@@ -10,6 +9,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,7 +22,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener{
+public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener,
+        MoveControlFragment.OnMoveControlListener {
 
     private static String LOG_TAG = MainActivity.class.getSimpleName();
 
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     private ImageView mImageBT   = null;
 
     private TextView  mTextStatus = null;
+
+    private MoveControlFragment mMoveControlFragment = null;
 
     /**
      * Name of the connected device
@@ -97,6 +100,11 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
     }
 
+    @Override
+    public void onMoveSendMsg(byte[] msg) {
+        sendMessage(msg);
+    }
+
     class MyPagerAdapter extends FragmentPagerAdapter {
         List<Fragment> fragments = new ArrayList<>();
 
@@ -104,7 +112,8 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
         public MyPagerAdapter(FragmentManager fm) {
             super(fm);
-            fragments.add(new MoveControlFragment());
+            mMoveControlFragment = new MoveControlFragment();
+            fragments.add(mMoveControlFragment);
             fragments.add(new LineTracerFragment());
             fragments.add(new SettingFragment());
         }
@@ -219,13 +228,16 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
                     // construct a string from the buffer
                     String writeMessage = new String(writeBuf);
                     //mConversationArrayAdapter.add("Me:  " + writeMessage);
+                    sendMsgToFragment(writeMessage);
                     break;
                 case Constants.MESSAGE_READ:
                     byte[] readBuf = (byte[]) msg.obj;
-                    // construct a string from the valid bytes in the buffer
+                    // construct a string from the valid bytes in the buff
                     String readMessage = new String(readBuf, 0, msg.arg1);
+                    UZLog.d(LOG_TAG, "Message : " + readMessage);
                     //mConversationArrayAdapter.add(mConnectedDeviceName + ":  " + readMessage);
-                    mTextStatus.append(readMessage);
+                    //mTextStatus.append(readMessage);
+                    sendMsgToFragment(readMessage);
                     break;
                 case Constants.MESSAGE_DEVICE_NAME:
                     // save the connected device's name
@@ -337,5 +349,33 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
             // Reset out string buffer to zero and clear the edit text field
             mOutStringBuffer.setLength(0);
         }
+    }
+
+    /**
+     * Sends a message.
+     *
+     * @param out A string of text to send.
+     */
+    private void sendMessage(byte[] out) {
+        // Check that we're actually connected before trying anything
+        if (mChatService.getState() != BluetoothChatService.STATE_CONNECTED) {
+            Toast.makeText(this, R.string.not_connected, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Check that there's actually something to send
+        if (out.length > 0) {
+            // Get the message bytes and tell the BluetoothChatService to write
+            mChatService.write(out);
+        }
+    }
+
+    private void sendMsgToFragment(String msg) {
+        if(mMoveControlFragment != null) {
+            mMoveControlFragment.updateDistance(msg);
+        } else {
+            UZLog.d(LOG_TAG, "fragment null");
+        }
+
     }
 }

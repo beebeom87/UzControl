@@ -17,4 +17,7 @@
         <item name="android:textColor">@color/graye</item>
     </style>
 
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+
+    </style>
 </resources>
