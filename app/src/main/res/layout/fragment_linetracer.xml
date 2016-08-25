@@ -1,36 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- SnackBar가 출력될때 FAB를 가리지 않고.. 같이 이동되게 하려고.. -->
-<android.support.design.widget.CoordinatorLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:orientation="vertical"
+    android:id="@+id/fragment_movecontrol"  >
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/line_show_bt"
+        android:layout_gravity="right|top"
+        android:layout_margin="40dp"
+        android:elevation="20dp"
+        android:text="Show Value"/>
+
+    <ImageView
+        android:id="@+id/line_status_up_iv"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_margin="3dp"
+        android:layout_gravity="center_horizontal"
+        android:elevation="20dp"
+        android:src="@drawable/ic_action_device_access_bluetooth_searching"/>
+
+    <TextView
+        android:id="@+id/line_status_up_tv"
+        android:layout_width="70dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:textSize="20dp"
+        android:text="30"/>
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <EditText
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="i am hint"/>
+            android:orientation="vertical"
+            android:layout_weight="1"
+            >
 
-        <!-- hind 문자열 유지 -->
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/line_status_left_iv"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_margin="3dp"
+                android:layout_gravity="center_horizontal"
+                android:elevation="20dp"
+                android:src="@drawable/ic_action_device_access_bluetooth_searching"/>
+
+            <TextView
+                android:id="@+id/line_status_left_tv"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20dp"
+                android:text="30"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp" >
+            android:orientation="vertical"
+            android:layout_weight="1"
+            >
+            <ImageView
+                android:id="@+id/line_status_right_iv"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_margin="3dp"
+                android:layout_gravity="center_horizontal"
+                android:elevation="20dp"
+                android:src="@drawable/ic_action_device_access_bluetooth_searching"/>
 
-            <android.support.v7.widget.AppCompatEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="i am hint2" />
+            <TextView
+                android:id="@+id/line_status_right_tv"
+                android:layout_width="70dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20dp"
+                android:text="30"/>
 
-        </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
-</android.support.design.widget.CoordinatorLayout>
+
+</LinearLayout>

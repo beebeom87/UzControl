@@ -15,8 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 /**
  * Created by SB on 2016-08-21.
  */
@@ -126,16 +124,14 @@ public class MoveControlFragment extends Fragment{
         public DirectionButtonOnTouchListener(double l, double r) {
             lmod = l;
             rmod = r;
-            //ImageButton buttonUp = (ImageButton) findViewById(R.id.button_up);
         }
         //
         // 버튼을 누르면 구분없이 l,r 지정된 값으로 모터 값 지정.
         //
         @Override
         public boolean onTouch(View v, MotionEvent event) {
-            //Log.i("GPC", "onTouch event: " + Integer.toString(event.getAction()));
             int action = event.getAction();
-            //if ((action == MotionEvent.ACTION_DOWN) || (action == MotionEvent.ACTION_MOVE)) {
+
             if (action == MotionEvent.ACTION_DOWN) {
                 byte power = (byte) mPower;
                 if (mReverse) {
@@ -151,7 +147,7 @@ public class MoveControlFragment extends Fragment{
             } else if ((action == MotionEvent.ACTION_UP) || (action == MotionEvent.ACTION_CANCEL)) {
                 motors((byte) 0, (byte) 0, mRegulateSpeed, mSynchronizeMotors);
             }
-            return true;
+            return false;
         }
     }
 
